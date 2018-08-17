@@ -1,4 +1,4 @@
-FROM        phusion/baseimage
+FROM        phusion/baseimage:0.11
 LABEL       maintainer="LedoKun"
 
 ENV         DEBIAN_FRONTEND noninteractive
