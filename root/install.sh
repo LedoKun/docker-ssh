@@ -8,7 +8,7 @@ PACKAGES="pwgen"
 
 # Install packages
 apt-get update
-# apt-get dist-upgrade -y
+apt-get dist-upgrade -y
 apt-get install -y \
     ${PACKAGES}
 
@@ -22,14 +22,16 @@ mv /etc/ssh/sshd_config /etc/ssh/sshd_config.original
 # Config startup script
 chmod a+x /etc/my_init.d/*
 
-# Set the root passwd - grep docker logs for it
+# Set the user passwd
 USER_PASSWORD=`pwgen -c -n -1 30`
+USER_PASSWORD='555'
+echo ${USER_PASSWORD} > /etc/ssh/default_password
 echo "project login password: $USER_PASSWORD"
 
 # Add User
 useradd -d ${HOME} -p ${USER_PASSWORD} -s /bin/bash project
 
 # Cleanup
-apt-get autoremove --purge -y
+apt-get autoremove --purge -y ${PACKAGES}
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 rm -rf /install.sh /Release.key
