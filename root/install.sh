@@ -3,13 +3,15 @@
 # Exit when any command fails
 set -e
 
-# Packages
-PACKAGES="pwgen"
+# PACKAGES
+BUILD_PACKAGES="pwgen"
+PACKAGES="sudo"
 
-# Install packages
+# Install BUILD_PACKAGES
 apt-get update
 apt-get dist-upgrade -y
 apt-get install -y \
+    ${BUILD_PACKAGES} \
     ${PACKAGES}
 
 # Enable sshd
@@ -27,10 +29,12 @@ USER_PASSWORD=`pwgen -c -n -1 30`
 echo ${USER_PASSWORD} > /etc/ssh/default_password
 echo "project login password: $USER_PASSWORD"
 
+echo "project  ALL=(ALL:ALL) ALL" >> /etc/sudoers
+
 # Add User
 useradd -d ${HOME} -p ${USER_PASSWORD} -s /bin/bash project
 
 # Cleanup
-apt-get autoremove --purge -y ${PACKAGES}
+apt-get autoremove --purge -y ${BUILD_PACKAGES}
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 rm -rf /install.sh /Release.key
