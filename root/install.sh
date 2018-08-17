@@ -24,7 +24,6 @@ chmod a+x /etc/my_init.d/*
 
 # Set the user passwd
 USER_PASSWORD=`pwgen -c -n -1 30`
-USER_PASSWORD='555'
 echo ${USER_PASSWORD} > /etc/ssh/default_password
 echo "project login password: $USER_PASSWORD"
 
