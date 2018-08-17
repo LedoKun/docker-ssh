@@ -17,7 +17,7 @@ apt-get install -y \
 rm -f /etc/service/sshd/down
 
 # Backup config
-mv /etc/ssh/sshd_config /etc/ssh/sshd_config.original
+cp /etc/ssh/sshd_config /etc/ssh/sshd_config.original
 
 # Config startup script
 chmod a+x /etc/my_init.d/*
