@@ -26,6 +26,12 @@ chmod a+x /etc/my_init.d/*
 useradd -d ${HOME} -s /bin/bash project
 echo "project  ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
+# Add ENV
+echo "LC_ALL=C.UTF-8" >> /etc/environment
+echo "LANG=en_US.UTF-8" >> /etc/environment
+echo "LANGUAGE=en_US.UTF-8" >> /etc/environment
+echo "DEBIAN_FRONTEND=noninteractive" >> /etc/environment
+
 # Cleanup
 apt-get autoremove --purge -y ${BUILD_PACKAGES}
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
